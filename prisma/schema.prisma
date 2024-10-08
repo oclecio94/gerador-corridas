@@ -1,0 +1,48 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Usuario {
+  id                 Int                @id @default(autoincrement())
+  nome               String
+  email              String             @unique
+  tipo               String // "PASSAGEIRO" ou "MOTORISTA"
+  corridasPassageiro Corrida[]          @relation("passageiro")
+  corridasMotorista  Corrida[]          @relation("motorista")
+  criadaEm           DateTime           @default(now())
+  atualizadoEm       DateTime           @updatedAt
+  historico          HistoricoCorrida[]
+}
+
+model Corrida {
+  id           Int                @id @default(autoincrement())
+  passageiro   Usuario            @relation("passageiro", fields: [passageiroId], references: [id])
+  passageiroId Int
+  motorista    Usuario            @relation("motorista", fields: [motoristaId], references: [id])
+  motoristaId  Int
+  destino      String
+  status       String             @default("CRIADA")
+  historico    HistoricoCorrida[]
+  criadaEm     DateTime           @default(now())
+  atualizadoEm DateTime           @updatedAt
+}
+
+model HistoricoCorrida {
+  id                 Int       @id @default(autoincrement())
+  corrida            Corrida   @relation(fields: [corridaId], references: [id])
+  corridaId          Int
+  cancelador         Usuario?  @relation(fields: [canceladorId], references: [id])
+  canceladorId       Int?
+  motivoCancelamento String?
+  inicio             DateTime?
+  fim                DateTime?
+  valor              Int?
+  status             String
+  criadaEm           DateTime  @default(now())
+  atualizadoEm       DateTime  @updatedAt
+}
