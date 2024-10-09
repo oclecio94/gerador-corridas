@@ -1,4 +1,4 @@
-import { corridaRoutes } from "./corrida.routes";
+import { corridaRoutes } from "./corrida.routes.js";
 
 const routes = (app) => {
   corridaRoutes(app);

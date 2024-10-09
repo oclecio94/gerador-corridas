@@ -1,9 +1,9 @@
 import {
   criarCorrida,
   cancelarCorrida,
-} from "../repositories/corrida.repository";
-import { cancelarValidation } from "../validations/cancelar.validation";
-import { criarValidation } from "../validations/criar.validation";
+} from "../repositories/corrida.repository.js";
+import { cancelarValidation } from "../validations/cancelar.validation.js";
+import { criarValidation } from "../validations/criar.validation.js";
 
 export const criar = async (req, res) => {
   try {

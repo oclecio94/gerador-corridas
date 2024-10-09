@@ -1,4 +1,4 @@
-import { prisma } from "../services/prisma";
+import { prisma } from "../services/prisma.js";
 
 export const criarCorrida = async (data) => {
   const { passageiroId, motoristaId, destino, valor } = data;
